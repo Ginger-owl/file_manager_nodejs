@@ -43,5 +43,5 @@ export const osController = (params) => {
         break
     }
   }
-  return output
+  console.log(output);
 }
