@@ -2,6 +2,7 @@ import { getHomedir, osController } from './os/index.js'
 import { up, ls, cd } from './nvd/index.js'
 import { calculateHash } from './hash/index.js'
 import { createInterface } from 'readline/promises'
+import { compress, decompress } from './zip/index.js'
 
 class FileManager {
   constructor() {
@@ -54,6 +55,16 @@ class FileManager {
           await calculateHash(params[0], this.currentDirectory)
           break;
         }
+      case 'compress':
+      if (params.length === 2) {
+        await compress(params[0], params[1], this.currentDirectory)
+        break;
+      }
+      case 'decompress':
+      if (params.length === 2) {
+        await decompress(params[0], params[1], this.currentDirectory)
+        break;
+      }
       default:
         process.stdout.write(`Received command: ${input}\n`)
         process.stdout.write(`Invalid input!\n`)

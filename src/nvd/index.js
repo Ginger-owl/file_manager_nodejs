@@ -1,4 +1,4 @@
-import { access, readdir, stat } from 'fs/promises'
+import { readdir, stat } from 'fs/promises'
 import { resolve } from 'path'
 
 export const up = (currentDir) => {
