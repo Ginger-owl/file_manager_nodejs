@@ -1,8 +1,9 @@
+import { createInterface } from 'readline/promises'
 import { getHomedir, osController } from './os/index.js'
 import { up, ls, cd } from './nvd/index.js'
 import { calculateHash } from './hash/index.js'
-import { createInterface } from 'readline/promises'
 import { compress, decompress } from './zip/index.js'
+import { add, cat, cp, mv, rm, rn } from './fs/index.js'
 
 class FileManager {
   constructor() {
@@ -47,24 +48,66 @@ class FileManager {
         }
       case 'cd':
         if (params.length === 1) {
-            this.currentDirectory = await cd(params[0], this.currentDirectory)
-            break;
-          }
+          this.currentDirectory = await cd(params[0], this.currentDirectory)
+          break
+        }
+      case 'cat':
+        if (params.length === 1) {
+          await cat(params[0], this.currentDirectory)
+          break
+        } else {
+          console.log('Invalid input!\n') //TODO: refactor
+        }
+      case 'cp':
+        if (params.length === 2) {
+          await cp(params[0], params[1], this.currentDirectory)
+          break
+        } else {
+          console.log('Invalid input!\n') //TODO: refactor
+        }
+      case 'mv':
+        if (params.length === 2) {
+          await mv(params[0], params[1], this.currentDirectory)
+          break
+        } else {
+          console.log('Invalid input!\n') //TODO: refactor
+        }
+      case 'rm':
+        if (params.length === 1) {
+          await rm(params[0], this.currentDirectory)
+          break
+        } else {
+          console.log('Invalid input!\n') //TODO: refactor
+        }
+      case 'rn':
+        if (params.length === 2) {
+          await rn(params[0], params[1], this.currentDirectory)
+          break
+        } else {
+          console.log('Invalid input!\n') //TODO: refactor
+        }
+      case 'add':
+        if (params.length === 1) {
+          await add(params[0], this.currentDirectory)
+          break
+        } else {
+          console.log('Invalid input!\n') //TODO: refactor
+        }
       case 'hash':
         if (params.length === 1) {
           await calculateHash(params[0], this.currentDirectory)
-          break;
+          break
         }
       case 'compress':
-      if (params.length === 2) {
-        await compress(params[0], params[1], this.currentDirectory)
-        break;
-      }
+        if (params.length === 2) {
+          await compress(params[0], params[1], this.currentDirectory)
+          break
+        }
       case 'decompress':
-      if (params.length === 2) {
-        await decompress(params[0], params[1], this.currentDirectory)
-        break;
-      }
+        if (params.length === 2) {
+          await decompress(params[0], params[1], this.currentDirectory)
+          break
+        }
       default:
         process.stdout.write(`Received command: ${input}\n`)
         process.stdout.write(`Invalid input!\n`)
