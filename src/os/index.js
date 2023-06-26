@@ -21,27 +21,27 @@ export const getUsername = () => {
 }
 
 export const osController = (params) => {
-  let output = `Invalid argument!`;
+  let output = `Invalid argument!`
   if (params.length === 1) {
-    output = `Invalid argument!`;
-    const paramName = params[0];
+    output = `Invalid argument!`
+    const paramName = params[0]
     switch (paramName) {
       case '--EOL':
-        output = getEol();
+        output = getEol()
         break
       case '--cpus':
-        output = getCpus();
+        output = getCpus()
         break
       case '--homedir':
-        output = getHomedir();
+        output = getHomedir()
         break
       case '--username':
-        output = getUsername();
+        output = getUsername()
         break
       case '--architecture':
-        output = getArch();
+        output = getArch()
         break
     }
   }
-  console.log(output);
+  console.log(output)
 }

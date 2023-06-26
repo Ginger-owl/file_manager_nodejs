@@ -1,6 +1,6 @@
-import {resolve} from 'path';
+import {resolve} from 'path'
 import { createReadStream } from 'fs'
-import { access, copyFile, writeFile, rm as removeFile, rename } from 'fs/promises';
+import { access, copyFile, writeFile, rm as removeFile, rename } from 'fs/promises'
 
 export const add = async (pathToFileNew, currentDirectory) => {
   try {

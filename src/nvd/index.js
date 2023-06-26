@@ -10,7 +10,7 @@ export const up = (currentDir) => {
 
 export const ls = async (currentDir) => {
   try {
-    const fileList = await readdir(currentDir, { withFileTypes: true });
+    const fileList = await readdir(currentDir, { withFileTypes: true })
     const filesTable = fileList
       .map((file, index) => ({
         index: index + 1,
@@ -45,7 +45,7 @@ export const cd = async (pathToDirectory, currentDir) => {
     } else {
       pathToNewDirectory = resolve(currentDir, pathToDirectory)
     }
-    const newDirectoryInfo = await stat(pathToNewDirectory);
+    const newDirectoryInfo = await stat(pathToNewDirectory)
 
     if (newDirectoryInfo.isDirectory()) {
       return pathToNewDirectory
