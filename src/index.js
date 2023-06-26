@@ -1,5 +1,6 @@
 import { getHomedir, osController } from './os/index.js'
 import { up, ls, cd } from './nvd/index.js'
+import { calculateHash } from './hash/index.js'
 import { createInterface } from 'readline/promises'
 
 class FileManager {
@@ -44,11 +45,15 @@ class FileManager {
           break
         }
       case 'cd':
-        console.log(params[0])
         if (params.length === 1) {
             this.currentDirectory = await cd(params[0], this.currentDirectory)
             break;
           }
+      case 'hash':
+        if (params.length === 1) {
+          await calculateHash(params[0], this.currentDirectory)
+          break;
+        }
       default:
         process.stdout.write(`Received command: ${input}\n`)
         process.stdout.write(`Invalid input!\n`)
