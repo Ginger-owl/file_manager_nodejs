@@ -5,7 +5,7 @@ import { calculateHash } from './hash/index.js'
 import { compress, decompress } from './zip/index.js'
 import { add, cat, cp, mv, rm, rn } from './fs/index.js'
 
-class FileManager {
+export default class FileManager {
   constructor() {
     this.username = this.getUsername()
     this.currentDirectory = getHomedir()
@@ -23,10 +23,6 @@ class FileManager {
     return username
     }
   }
-
-/*   cmdParser(input) {
-    
-  } */
 
   async cmdController(line) {
     const input = line.trim().split(' ')
@@ -56,42 +52,42 @@ class FileManager {
           await cat(params[0], this.currentDirectory)
           break
         } else {
-          console.log('Invalid input!\n') //TODO: refactor
+          console.log('Invalid input!') //TODO: refactor
         }
       case 'cp':
         if (params.length === 2) {
           await cp(params[0], params[1], this.currentDirectory)
           break
         } else {
-          console.log('Invalid input!\n') //TODO: refactor
+          console.log('Invalid input!') //TODO: refactor
         }
       case 'mv':
         if (params.length === 2) {
           await mv(params[0], params[1], this.currentDirectory)
           break
         } else {
-          console.log('Invalid input!\n') //TODO: refactor
+          console.log('Invalid input!') //TODO: refactor
         }
       case 'rm':
         if (params.length === 1) {
           await rm(params[0], this.currentDirectory)
           break
         } else {
-          console.log('Invalid input!\n') //TODO: refactor
+          console.log('Invalid input!') //TODO: refactor
         }
       case 'rn':
         if (params.length === 2) {
           await rn(params[0], params[1], this.currentDirectory)
           break
         } else {
-          console.log('Invalid input!\n') //TODO: refactor
+          console.log('Invalid input!') //TODO: refactor
         }
       case 'add':
         if (params.length === 1) {
           await add(params[0], this.currentDirectory)
           break
         } else {
-          console.log('Invalid input!\n') //TODO: refactor
+          console.log('Invalid input!') //TODO: refactor
         }
       case 'hash':
         if (params.length === 1) {
@@ -109,8 +105,7 @@ class FileManager {
           break
         }
       default:
-        process.stdout.write(`Received command: ${input}\n`)
-        process.stdout.write(`Invalid input!\n`)
+        process.stdout.write(`Invalid input!`)
         break
     }
     process.stdout.write(`You are currently in ${this.currentDirectory}\n`)
@@ -124,8 +119,16 @@ class FileManager {
     readInterface.on('line', (line) => {
       this.cmdController(line)
     })
+
+    readInterface.on('SIGINT', async () => {
+      readInterface.close();
+    });
+  
+    readInterface.on('close', async () => {
+      console.log(`Thank you for using File Manager, ${this.username}, goodbye!`)
+      process.exit(0);
+    });
   }
 }
 
-const fm = new FileManager()
-fm.init()
+

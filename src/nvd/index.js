@@ -2,9 +2,7 @@ import { readdir, stat } from 'fs/promises'
 import { resolve } from 'path'
 
 export const up = (currentDir) => {
-  console.log(`Received directory ${currentDir}`)
   const parentDir = resolve(currentDir, '..')
-  console.log(`Parent directory ${parentDir}`)
   return parentDir
 }
 
@@ -38,7 +36,6 @@ export const ls = async (currentDir) => {
 
 export const cd = async (pathToDirectory, currentDir) => {
   try {
-    console.log(pathToDirectory)
     let pathToNewDirectory
     if (pathToDirectory[0] === '/') {
       pathToNewDirectory = resolve(pathToDirectory)
