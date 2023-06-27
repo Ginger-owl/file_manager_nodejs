@@ -104,16 +104,19 @@ export default class FileManager {
           await decompress(params[0], params[1], this.currentDirectory)
           break
         }
+      case '.exit':
+        console.log(`Thank you for using File Manager, ${this.username}, goodbye!`)
+        process.exit(0);
       default:
-        process.stdout.write(`Invalid input!`)
+        console.log(`Invalid input!`)
         break
     }
-    process.stdout.write(`You are currently in ${this.currentDirectory}\n`)
+    process.stdout.write(`You are currently in ${this.currentDirectory}`)
   }
 
   init() {
-    process.stdout.write(`Welcome to the File Manager, ${this.username}!\n`)
-    process.stdout.write(`You are currently in ${this.currentDirectory}\n`)
+    console.log(`Welcome to the File Manager, ${this.username}!`)
+    console.log(`You are currently in ${this.currentDirectory}`)
 
     const readInterface = createInterface({input: process.stdin, output: process.stdout, prompt: '> '})
     readInterface.on('line', (line) => {
