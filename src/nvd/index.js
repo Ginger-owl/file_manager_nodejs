@@ -10,8 +10,7 @@ export const ls = async (currentDir) => {
   try {
     const fileList = await readdir(currentDir, { withFileTypes: true })
     const filesTable = fileList
-      .map((file, index) => ({
-        index: index + 1,
+      .map((file, _) => ({
         name: file.name,
         type: file.isDirectory() ? 'directory' : `file`,
         
@@ -28,7 +27,7 @@ export const ls = async (currentDir) => {
           ? 1
           : 0;
       });
-      console.log(filesTable)
+      console.table(filesTable)
   } catch {
     console.log('Invalid Input!')
   }
